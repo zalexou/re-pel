@@ -1,0 +1,25 @@
+{
+  "name": "re-pel",
+  "homepage": "https://github.com/zalexou/re-pel",
+  "authors": [
+    "zalexou"
+  ],
+  "description": "Revamp of PEL",
+  "main": "index.html",
+  "keywords": [
+    "pel"
+  ],
+  "license": "Apache",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "jquery": "^3.2.1"
+  }
+}
