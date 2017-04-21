@@ -11,9 +11,9 @@ class Quadrilateral extends Object {
         this.renderFn = ObjectRenderer.renderQuad;
     }
 
-    doRender(ctx) {
+    doRender(canvas) {
         this.renderFn(this.x, this.y, this.width, this.height, {
-            ctx: ctx,
+            ctx: canvas.getContext(),
             shape: 'fill',
             color: 'red'
         })
