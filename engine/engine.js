@@ -24,16 +24,32 @@ class RepelEngine {
      * Creates the rendering canvas in the DOMRootElement and sets the context to 2d
      */
     createCanvas() {
-        this.canvas = $('<canvas/>', {
-            id: 'testcanvas',
-            height: this.height,
-            width: this.width
+        this.canvas = new Canvas({
+            height: 500,
+            width: 500
         });
-        this.DOMRootElement.append(this.canvas);
-        this.ctx = this.canvas.get(0).getContext('2d');
+        this.DOMRootElement.append(this.canvas.getDOMElement());
+        this.ctx = this.canvas.getContext();
+    }
+
+    render() {
+        this.canvas.clear();
+        _.forEach(this.objects, (object) => {
+            object.doRender(this.ctx);
+        });
+        requestAnimationFrame(() => {
+            this.render();
+        })
     }
 
     init() {
         this.createCanvas();
+        this.objects = [new Quadrilateral({
+            x: 20,
+            y: 20,
+            width: 50,
+            height: 50
+        })];
+        this.render();
     }
 }

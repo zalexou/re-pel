@@ -2,10 +2,6 @@
  * Created by azalio on 21/04/2017.
  */
 class ObjectRenderer {
-    constructor(context) {
-        this.ctx = context;
-    }
-
     /**
      * Option types:
      *  - shape: "stroke", "fill"
@@ -15,10 +11,16 @@ class ObjectRenderer {
      * @param width
      * @param options
      */
-    renderQuad(x, y, height, width, options) {
-        this.ctx.beginPath();
-        this.context.strokeStyle = options.strokeColor || 'black';
-        this.ctx.strokeRect(x, y, width, height);
-        this.ctx.stroke();
+    static renderQuad(x, y, height, width, options) {
+        options.ctx.beginPath();
+        if (options.shape === 'stroke') {
+            options.ctx.strokeStyle = options.color || 'black';
+            options.ctx.strokeRect(x, y, width, height);
+            options.ctx.stroke();
+        } else {
+            options.ctx.fillStyle = options.color;
+            options.ctx.fillRect(x, y, width, height);
+            options.ctx.fill();
+        }
     }
 }
