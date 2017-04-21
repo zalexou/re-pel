@@ -29,18 +29,29 @@ class RepelEngine {
             width: 500
         });
         this.DOMRootElement.append(this.canvas.getDOMElement());
-        this.ctx = this.canvas.getContext();
     }
 
     render() {
         this.canvas.clear();
         _.forEach(this.objects, (object) => {
-            object.doRender(this.ctx);
+            object.doRender(this.canvas);
         });
-        requestAnimationFrame(() => {
-            this.render();
-        })
+        requestAnimationFrame(() => this.render());
     }
+
+    manageKeydown(e) {
+        if(e.keyCode === Keys.code('LEFT')) {
+            console.log('LEFT');
+            //movePaddle(-1);
+        } else if(e.keyCode === Keys.code('RIGHT')) {
+            console.log('RIGHT');
+            //movePaddle(1);
+        }
+    }
+
+    listenKeystrokes() {
+        $(document).on('keydown', (e) => this.manageKeydown(e))
+    };
 
     init() {
         this.createCanvas();
@@ -50,6 +61,7 @@ class RepelEngine {
             width: 50,
             height: 50
         })];
-        this.render();
+        this.listenKeystrokes();
+        requestAnimationFrame(() => this.render());
     }
 }
