@@ -4,5 +4,7 @@
 class Object {
     constructor() {
         this.guid = window.SVC.guid.generate();
+        this.x = 0;
+        this.y = 0;
     }
 }
