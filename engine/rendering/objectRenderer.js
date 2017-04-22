@@ -23,4 +23,19 @@ class ObjectRenderer {
             options.ctx.fill();
         }
     }
+
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param diameter
+     * @param options
+     */
+    static renderCircle(x, y, diameter, options) {
+        options.ctx.beginPath();
+        options.ctx.arc(Math.round(x), Math.round(y), Math.round(diameter / 2), 0, 2 * Math.PI, false);
+        options.ctx.strokeStyle = options.color || 'black';
+        options.ctx.strokeWidth = 1;
+        options.ctx.stroke();
+    }
 }

@@ -4,9 +4,11 @@
 class Canvas {
     constructor(options) {
         this.canvas = $(document.createElement('canvas'));
+        this.height = options.height;
+        this.width = options.width;
         this.canvas.attr('id', 'testcanvas');
-        this.canvas.attr('height', options.height);
-        this.canvas.attr('width', options.width);
+        this.canvas.attr('height', this.height);
+        this.canvas.attr('width', this.width);
         this.ctx = this.canvas.get(0).getContext('2d');
     }
 

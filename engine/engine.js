@@ -18,6 +18,11 @@ class RepelEngine {
         }
         this.height = parseInt(configuration.height);
         this.width = parseInt(configuration.width);
+        this.controller = new RepelController();
+    }
+
+    getController() {
+        return this.controller;
     }
 
     /**
@@ -32,11 +37,12 @@ class RepelEngine {
     }
 
     render() {
+        console.log('rendering');
         this.canvas.clear();
         _.forEach(this.objects, (object) => {
             object.doRender(this.canvas);
         });
-        requestAnimationFrame(() => this.render());
+        requestAnimationFrame(() => this.render())
     }
 
     manageKeydown(e) {
@@ -55,13 +61,9 @@ class RepelEngine {
 
     init() {
         this.createCanvas();
-        this.objects = [new Quadrilateral({
-            x: 20,
-            y: 20,
-            width: 50,
-            height: 50
-        })];
+        this.objects = [];
         this.listenKeystrokes();
         requestAnimationFrame(() => this.render());
+        window.toto = this.canvas.clear();
     }
 }

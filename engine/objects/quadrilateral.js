@@ -3,9 +3,7 @@
  */
 class Quadrilateral extends Object {
     constructor(config) {
-        super();
-        this.x = config.x;
-        this.y = config.y;
+        super(config);
         this.height = config.height;
         this.width = config.width;
         this.renderFn = ObjectRenderer.renderQuad;

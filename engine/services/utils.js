@@ -1,7 +1,7 @@
 const Guid = function() {
     const _this = this;
     _this.generate = function() {
-        return "je suis un guid";
+        return Math.random();
     };
 
     return _this;
