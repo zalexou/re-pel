@@ -37,7 +37,6 @@ class RepelEngine {
     }
 
     render() {
-        console.log('rendering');
         this.canvas.clear();
         _.forEach(this.objects, (object) => {
             object.doRender(this.canvas);
@@ -45,25 +44,9 @@ class RepelEngine {
         requestAnimationFrame(() => this.render())
     }
 
-    manageKeydown(e) {
-        if(e.keyCode === Keys.code('LEFT')) {
-            console.log('LEFT');
-            //movePaddle(-1);
-        } else if(e.keyCode === Keys.code('RIGHT')) {
-            console.log('RIGHT');
-            //movePaddle(1);
-        }
-    }
-
-    listenKeystrokes() {
-        $(document).on('keydown', (e) => this.manageKeydown(e))
-    };
-
     init() {
         this.createCanvas();
         this.objects = [];
-        this.listenKeystrokes();
         requestAnimationFrame(() => this.render());
-        window.toto = this.canvas.clear();
     }
 }
