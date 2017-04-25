@@ -42,7 +42,9 @@ class RepelController{
     next(timeOffset) {
         let stamp = Date.now();
         _.forEach(this.commands, (command) => {
-            var executionResult = command.execute(this, timeOffset);
+            //Whiler ce truc
+            let chainCmd = command.execute(this, timeOffset);
+            chainCmd ? this.commands.concat(chainCmd) : null;
         });
         this.commands = this.commandBuffer;
         this.commandBuffer = [];

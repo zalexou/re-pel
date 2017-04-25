@@ -20,7 +20,6 @@ let moveRedSquare = () => {
     controller.pushCommand(new SetPositionCmd(redsquare, squarePosition));
 };
 
-
 let addSquare = new CreateObjectCmd('Quadrilateral', {
     x: 20,
     y: 20,
@@ -29,6 +28,15 @@ let addSquare = new CreateObjectCmd('Quadrilateral', {
 }, (object) => {
     redsquare = object;
     moveRedSquare();
+    let pushRedSquare = new MoveToCmd(redsquare, {
+        x: 10,
+        y: 10
+    }, 1);
+
+    let onSpacebarKeydown = new KeystrokeCmd('SPACE', () => {
+        controller.pushCommand(pushRedSquare);
+    });
+    controller.pushCommand(onSpacebarKeydown);
 });
 controller.pushCommand(addSquare);
 
