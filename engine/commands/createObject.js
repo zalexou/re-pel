@@ -2,10 +2,11 @@
  * Created by alex on 23/04/2017.
  */
 class CreateObjectCmd extends Command {
-    constructor(objectClass, options) {
+    constructor(objectClass, options, callback) {
         super();
         this.objectClass = objectClass;
         this.options = options;
+        this.callback = callback;
     }
 
     execute(controller) {
@@ -19,6 +20,7 @@ class CreateObjectCmd extends Command {
                 break;
         }
         controller.addObject(newObj);
+        this.callback && this.callback(newObj);
         return null;
     }
 }

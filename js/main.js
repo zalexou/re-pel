@@ -9,15 +9,50 @@ const engine = new RepelEngine({
 engine.init();
 
 const controller = engine.getController();
+
+let redsquare = null;
+let squarePosition = {
+    x: 100,
+    y: 100
+};
+
+let moveRedSquare = () => {
+    controller.pushCommand(new SetPositionCmd(redsquare, squarePosition));
+};
+
+
 let addSquare = new CreateObjectCmd('Quadrilateral', {
     x: 20,
     y: 20,
     width: 50,
     height: 50
+}, (object) => {
+    redsquare = object;
+    moveRedSquare();
 });
 controller.pushCommand(addSquare);
 
 
-
-let onLeftArrowKeydown = new KeystrokeCmd('LEFT', () => console.log('LEFT has been pressed'));
+let onLeftArrowKeydown = new KeystrokeCmd('LEFT', () => {
+    squarePosition.x--;
+    moveRedSquare()
+});
 controller.pushCommand(onLeftArrowKeydown);
+
+let onRightArrowKeydown = new KeystrokeCmd('RIGHT', () => {
+    squarePosition.x++;
+    moveRedSquare()
+});
+controller.pushCommand(onRightArrowKeydown);
+
+let onUpArrowKeydown = new KeystrokeCmd('UP', () => {
+    squarePosition.y--;
+    moveRedSquare()
+});
+controller.pushCommand(onUpArrowKeydown);
+
+let onDownArrowKeydown = new KeystrokeCmd('DOWN', () => {
+    squarePosition.y++;
+    moveRedSquare()
+});
+controller.pushCommand(onDownArrowKeydown);

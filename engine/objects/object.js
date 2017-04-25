@@ -4,7 +4,11 @@
 class Object {
     constructor(config) {
         this.guid = window.SVC.guid.generate();
-        this.x = config.x || 0;
-        this.y = config.y || 0;
+        this.setPosition({x: 0, y:0});
+    }
+
+    setPosition(position) {
+        this.x = position.x;
+        this.y = position.y;
     }
 }

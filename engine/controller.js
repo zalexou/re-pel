@@ -5,6 +5,7 @@ class RepelController{
     constructor(engine) {
         this.engine = engine;
         this.commands = [];
+        this.commandBuffer = [];
         this.listenedKeycodes = {};
         this.listenEvents();
         this.next();
@@ -34,7 +35,7 @@ class RepelController{
         if (cmd instanceof KeystrokeCmd) {
             this.registerKeystrokeCmd(cmd);
         } else {
-            this.commands.push(cmd);
+            this.commandBuffer.push(cmd);
         }
     }
 
@@ -43,7 +44,8 @@ class RepelController{
         _.forEach(this.commands, (command) => {
             var executionResult = command.execute(this, timeOffset);
         });
-        this.commands = [];
+        this.commands = this.commandBuffer;
+        this.commandBuffer = [];
         setTimeout(() => this.next(Date.now() - stamp), 20);
     }
 }
