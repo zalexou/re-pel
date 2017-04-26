@@ -39,13 +39,28 @@ class RepelController{
         }
     }
 
+    executeCommand(command, timeOffset) {
+        console.log('Executing ', command);
+        let chainCmd = command.execute(this, timeOffset);
+        let instantChainCommands = _.get(chainCmd, 'chain', []);
+        let nextTickCommands = _.get(chainCmd, 'nextTick', []);
+        _.forEach(instantChainCommands, (command) => {
+            this.executeCommand(command, timeOffset);
+        });
+
+        _.forEach(nextTickCommands, (command) => {
+            this.pushCommand(command);
+        });
+    }
+
     next(timeOffset) {
         let stamp = Date.now();
-        _.forEach(this.commands, (command) => {
-            //Whiler ce truc
-            let chainCmd = command.execute(this, timeOffset);
-            chainCmd ? this.commands.concat(chainCmd) : null;
-        });
+        let i = 0;
+        while ((this.commands.length > 0) && (i < this.commands.length)) {
+            let currentCmd = this.commands[i];
+            this.executeCommand(currentCmd, timeOffset);
+            i++;
+        }
         this.commands = this.commandBuffer;
         this.commandBuffer = [];
         setTimeout(() => this.next(Date.now() - stamp), 20);

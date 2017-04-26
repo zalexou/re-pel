@@ -31,7 +31,7 @@ let addSquare = new CreateObjectCmd('Quadrilateral', {
     let pushRedSquare = new MoveToCmd(redsquare, {
         x: 10,
         y: 10
-    }, 1);
+    }, 20);
 
     let onSpacebarKeydown = new KeystrokeCmd('SPACE', () => {
         controller.pushCommand(pushRedSquare);

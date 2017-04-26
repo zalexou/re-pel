@@ -14,20 +14,27 @@ class MoveToCmd extends Command {
         let target = this.destination;
         let velocity = distancePx;
 
-        var targetDist = this.distanceToTarget(point, target);
-        var ratio = targetDist / velocity;
+        let targetDist = this.distanceToTarget(point, target);
+        let nextCoordinates;
 
-        var H = target.y - point.y;
-        var h = H / ratio;
+        //If the next tick will pass object through destination
+        //sets the next coords to destination
+        if (targetDist <= velocity) {
+            nextCoordinates = this.destination;
+        } else {
+            let ratio = targetDist / velocity;
 
-        var L = target.x - point.x;
-        var l = L / ratio;
+            let H = target.y - point.y;
+            let h = H / ratio;
 
-        var nextCoordinates = {
-            x: point.x + l,
-            y: point.y + h
-        };
+            let L = target.x - point.x;
+            let l = L / ratio;
 
+            nextCoordinates = {
+                x: point.x + l,
+                y: point.y + h
+            };
+        }
         return nextCoordinates;
     }
 
@@ -36,12 +43,21 @@ class MoveToCmd extends Command {
     }
 
     execute(controller, timeDelta) {
-        var distancePx = (this.velocity / 1000) * timeDelta;
-        var nextCoordinates = this.getNextCoordinates(distancePx);
-        console.log('Moving ', this.object);
-        console.log('to ', nextCoordinates);
-        //TODO Send two new commands; move and push myself
+        let distancePx = (this.velocity / 1000) * timeDelta;
+        let nextCoordinates = this.getNextCoordinates(distancePx);
         let setPositionCmd = new SetPositionCmd(this.object, nextCoordinates);
-        return [setPositionCmd, this];
+        if (_.isEqual(this.destination, nextCoordinates)) {
+            //if we reach target then the command is over
+            return {
+                chain: [setPositionCmd],
+                nextTick: []
+            }
+        } else {
+            //if we need to go on we schedule another execution of the command
+            return {
+                chain: [setPositionCmd],
+                nextTick: [this]
+            }
+        }
     }
 }
