@@ -37,6 +37,11 @@ let addSquare = new CreateObjectCmd('Quadrilateral', {
         controller.pushCommand(pushRedSquare);
     });
     controller.pushCommand(onSpacebarKeydown);
+
+    let onEscapeKeydown = new KeystrokeCmd('ESCAPE', () => {
+        pushRedSquare.abort();
+    });
+    controller.pushCommand(onEscapeKeydown);
 });
 controller.pushCommand(addSquare);
 
