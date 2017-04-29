@@ -16,56 +16,19 @@ let squarePosition = {
     y: 100
 };
 
-let moveRedSquare = () => {
-    controller.pushCommand(new SetPositionCmd(redsquare, squarePosition));
+let onRedSquareCreated = (object) => {
+    redsquare = object;
+    let path = [{x: 250, y: 480}, {x: 25, y: 25}, {x: 150, y: 0}];
+    let pathCmd = new FollowPathCmd(redsquare, path, 50);
+    controller.pushCommand(pathCmd);
 };
 
 let addSquare = new CreateObjectCmd('Quadrilateral', {
-    x: 20,
-    y: 20,
+    x: squarePosition.x,
+    y: squarePosition.y,
     width: 50,
     height: 50
 }, (object) => {
-    redsquare = object;
-    moveRedSquare();
-    let pushRedSquare = new MoveToCmd(redsquare, {
-        x: 10,
-        y: 10
-    }, 20);
-
-    let onSpacebarKeydown = new KeystrokeCmd('SPACE', () => {
-        controller.pushCommand(pushRedSquare);
-    });
-    controller.pushCommand(onSpacebarKeydown);
-
-    let onEscapeKeydown = new KeystrokeCmd('ESCAPE', () => {
-        pushRedSquare.abort();
-    });
-    controller.pushCommand(onEscapeKeydown);
+    onRedSquareCreated(object);
 });
 controller.pushCommand(addSquare);
-
-
-let onLeftArrowKeydown = new KeystrokeCmd('LEFT', () => {
-    squarePosition.x--;
-    moveRedSquare()
-});
-controller.pushCommand(onLeftArrowKeydown);
-
-let onRightArrowKeydown = new KeystrokeCmd('RIGHT', () => {
-    squarePosition.x++;
-    moveRedSquare()
-});
-controller.pushCommand(onRightArrowKeydown);
-
-let onUpArrowKeydown = new KeystrokeCmd('UP', () => {
-    squarePosition.y--;
-    moveRedSquare()
-});
-controller.pushCommand(onUpArrowKeydown);
-
-let onDownArrowKeydown = new KeystrokeCmd('DOWN', () => {
-    squarePosition.y++;
-    moveRedSquare()
-});
-controller.pushCommand(onDownArrowKeydown);

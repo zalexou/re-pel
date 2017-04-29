@@ -40,16 +40,17 @@ class RepelController{
     }
 
     killCommand(command) {
-        
+
     }
 
     executeCommand(command, timeOffset) {
-        console.log('Executing ', command);
+        //console.log('Executing ', command);
         if (command.abortOnNextTick) {
             this.killCommand(command);
             return;
         }
         let chainCmd = command.execute(this, timeOffset);
+        command.triggerExeCallbacks();
         let instantChainCommands = _.get(chainCmd, 'chain', []);
         let nextTickCommands = _.get(chainCmd, 'nextTick', []);
         _.forEach(instantChainCommands, (command) => {

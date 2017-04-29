@@ -48,6 +48,7 @@ class MoveToCmd extends Command {
         let setPositionCmd = new SetPositionCmd(this.object, nextCoordinates);
         if (_.isEqual(this.destination, nextCoordinates)) {
             //if we reach target then the command is over
+            this.triggerEndCallbacks();
             return {
                 chain: [setPositionCmd],
                 nextTick: []
