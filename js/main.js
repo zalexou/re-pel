@@ -19,7 +19,14 @@ let squarePosition = {
 let onRedSquareCreated = (object) => {
     redsquare = object;
     let path = [{x: 250, y: 480}, {x: 25, y: 25}, {x: 150, y: 0}];
-    let pathCmd = new FollowPathCmd(redsquare, path, 50);
+    let pathCmd = new FollowPathCmd(redsquare, path, 200, {
+        onWaypointReached: (point) => {
+            console.log('Reached ', point)
+        },
+        onDestinationReached: () => {
+            console.log('Destination')
+        }
+    });
     controller.pushCommand(pathCmd);
 };
 
@@ -32,3 +39,12 @@ let addSquare = new CreateObjectCmd('Quadrilateral', {
     onRedSquareCreated(object);
 });
 controller.pushCommand(addSquare);
+
+let text = 'Coucou ça va lol';
+let addText = new CreateObjectCmd('Text', {
+    x: 100,
+    y: 100,
+    text: text
+});
+
+controller.pushCommand(addText);

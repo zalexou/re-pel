@@ -18,6 +18,9 @@ class CreateObjectCmd extends Command {
             case 'Circle':
                 newObj = new Circle(this.options);
                 break;
+            case 'Text':
+                newObj = new Text(this.options);
+                break;
         }
         controller.addObject(newObj);
         this.callback && this.callback(newObj);

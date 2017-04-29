@@ -38,4 +38,10 @@ class ObjectRenderer {
         options.ctx.strokeWidth = 1;
         options.ctx.stroke();
     }
+
+    static renderText(x, y, text, options) {
+        options.ctx.font="30px Verdana";
+        options.ctx.fillStyle = "black";
+        options.ctx.fillText(text, x, y);
+    }
 }

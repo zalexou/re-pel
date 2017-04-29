@@ -2,7 +2,7 @@
  * Created by alex on 28/04/2017.
  */
 class FollowPathCmd extends Command {
-    constructor(object, points, velocity) {
+    constructor(object, points, velocity, options) {
         super();
         this.object = object;
         this.points = points || [];
@@ -10,6 +10,8 @@ class FollowPathCmd extends Command {
         this.currentMovement = null;
         this.pointsIndex = 0;
         this.target = this.points[this.pointsIndex];
+        this.onWaypointReachedCallback = _.get(options, 'onWaypointReached', null);
+        this.onDestinationReachedCallback = _.get(options, 'onDestinationReached', null);
     }
 
     nextTarget() {
@@ -22,7 +24,7 @@ class FollowPathCmd extends Command {
     }
 
     waypointReached() {
-        console.log('Made it to', this.target)
+        this.onWaypointReachedCallback && this.onWaypointReachedCallback(this.target);
         this.currentMovement = null;
         this.target = this.nextTarget();
     }
@@ -31,6 +33,7 @@ class FollowPathCmd extends Command {
         if (!this.currentMovement) {
             if (!this.target) {
                 //if we're out of target we're done
+                this.onDestinationReachedCallback && this.onDestinationReachedCallback();
                 this.triggerEndCallbacks();
                 return {
                     chain: [],
