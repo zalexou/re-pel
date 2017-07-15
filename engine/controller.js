@@ -23,7 +23,7 @@ class RepelController{
     }
 
     addObject(object) {
-        engine.objects.push(object);
+        this.engine.objects.push(object);
         return object.guid;
     }
 

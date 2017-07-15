@@ -10,7 +10,7 @@ class Quadrilateral extends Object {
     }
 
     doRender(canvas) {
-        this.renderFn(this.x, this.y, this.width, this.height, {
+        this.renderFn(this.x, this.y, this.height, this.width, {
             ctx: canvas.getContext(),
             shape: 'fill',
             color: 'red'

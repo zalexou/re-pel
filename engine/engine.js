@@ -18,7 +18,7 @@ class RepelEngine {
         }
         this.height = parseInt(configuration.height);
         this.width = parseInt(configuration.width);
-        this.controller = new RepelController();
+        this.controller = new RepelController(this);
     }
 
     getController() {
