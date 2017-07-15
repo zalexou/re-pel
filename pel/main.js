@@ -13,6 +13,7 @@ game.start();
 //Adding paddle
 let paddle = new Paddle(game);
 paddle.init();
+game.setHitPoints(paddle.getHitPoints());
 
 //Adding a ball
 let ball = new Ball(game);

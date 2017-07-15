@@ -24,6 +24,10 @@ class Game {
         return this.globalVars[varName];
     }
 
+    setHitPoints(hitpoints) {
+        this.hitpoints = hitpoints;
+    }
+
     start() {
     }
 }

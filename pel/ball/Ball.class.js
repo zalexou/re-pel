@@ -6,7 +6,7 @@ class Ball {
         this.game = game;
         this.x = 0;
         this.y = 0;
-
+        this.velocity = 50;
         this.rplObj = null;
     }
 
@@ -18,7 +18,17 @@ class Ball {
             diameter: 10
         }, (repelObject) => {
             this.rplObj = repelObject;
+            this.launch();
         });
         game.repelController.pushCommand(ballCmd);
+
+    }
+
+    launch() {
+        //sets trajectory
+        let destination = this.game.hitpoints[0];
+
+        let moveCmd = new MoveToCmd(this.rplObj, destination, this.velocity)
+        this.game.repelController.pushCommand(moveCmd);
     }
 }

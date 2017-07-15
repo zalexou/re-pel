@@ -42,7 +42,7 @@ class Paddle {
         let hp = [];
         for (let i = 0; i <= this.paddleSpotsIndexes; i++) {
             hp.push({
-                x: ((this.width + (2 * this.margin)) * i) + (this.width * 2),
+                x: ((this.width + (2 * this.margin)) * i) + (this.width / 2),
                 y: this.y
             })
         }
