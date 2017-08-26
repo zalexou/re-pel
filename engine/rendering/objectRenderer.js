@@ -44,4 +44,12 @@ class ObjectRenderer {
         options.ctx.fillStyle = "black";
         options.ctx.fillText(text, x, y);
     }
+
+    static renderLine(x, y, endX, endY, options) {
+        options.ctx.beginPath();
+        options.ctx.moveTo(x, y);
+        options.ctx.lineTo(endX, endY);
+        options.ctx.strokeStyle = 'black';
+        options.ctx.stroke();
+    }
 }

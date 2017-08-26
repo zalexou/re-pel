@@ -1,7 +1,15 @@
-body {
-    background-color: lightgreen;
+canvas {
+    background-color: lightgray;
 }
 
-canvas {
-    background-color: white;
+#container {
+    margin: auto;
+    height: 900px;
+    width: 1200px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0px;
 }

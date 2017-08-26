@@ -6,8 +6,8 @@ class RepelEngine {
     /**
      * Expected values:
      *  - DOMRootElement: the parent DOM node for the rendering area
-     *  - height: canvas's height in pixels
-     *  - width: canvas's width in pixels
+     *  - height: canvas's height in pixels, defaults to container size
+     *  - width: canvas's width in pixels, defaults to container size
      * @param configuration
      */
     constructor(configuration) {
@@ -16,8 +16,8 @@ class RepelEngine {
         } else {
             this.DOMRootElement = configuration.DOMElement;
         }
-        this.height = parseInt(configuration.height);
-        this.width = parseInt(configuration.width);
+        this.height = parseInt(configuration.height || this.DOMRootElement.innerHeight());
+        this.width = parseInt(configuration.width || this.DOMRootElement.innerWidth());
         this.controller = new RepelController(this);
     }
 
@@ -30,8 +30,8 @@ class RepelEngine {
      */
     createCanvas() {
         this.canvas = new Canvas({
-            height: 500,
-            width: 500
+            height: this.height,
+            width: this.width
         });
         this.DOMRootElement.append(this.canvas.getDOMElement());
     }

@@ -13,6 +13,7 @@ class CreateObjectCmd extends Command {
         let newObj = null;
         switch (this.objectClass) {
             case 'Quadrilateral':
+            case 'Quad':
                 newObj = new Quadrilateral(this.options);
                 break;
             case 'Circle':
@@ -20,6 +21,9 @@ class CreateObjectCmd extends Command {
                 break;
             case 'Text':
                 newObj = new Text(this.options);
+                break;
+            case 'Line':
+                newObj = new Line(this.options);
                 break;
         }
         controller.addObject(newObj);
