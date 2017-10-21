@@ -7,6 +7,8 @@ class RepelController{
         this.commands = [];
         this.commandBuffer = [];
         this.listenedKeycodes = {};
+        this.daemons = [];
+        this.frameCount = 0;
         this.listenEvents();
         this.next();
     }
@@ -29,6 +31,17 @@ class RepelController{
 
     registerKeystrokeCmd(cmd) {
         this.listenedKeycodes[cmd.eventKeycode] = () => cmd.execute(this);
+    }
+
+    registerDaemon(daemon) {
+        this.daemons.push(daemon);
+        this.daemons = _.sortBy(this.daemons, [(d) => d.priority])
+    }
+
+    executeDaemons() {
+        _.forEach(this.daemons, (daemon) => {
+            daemon.trigger(this) ? daemon.execute(this) : null;
+        });
     }
 
     pushCommand(cmd) {
@@ -64,6 +77,8 @@ class RepelController{
 
     next(timeOffset) {
         let stamp = Date.now();
+        
+        //Executing commands
         let i = 0;
         while ((this.commands.length > 0) && (i < this.commands.length)) {
             let currentCmd = this.commands[i];
@@ -72,6 +87,10 @@ class RepelController{
         }
         this.commands = this.commandBuffer;
         this.commandBuffer = [];
+        
+        //Calling daemons
+        this.executeDaemons();
+        this.frameCount++;
         setTimeout(() => this.next(Date.now() - stamp), 20);
     }
 }
