@@ -2,15 +2,15 @@
  * Created by alex on 26/08/2017.
  */
 let testSceneData = {
-    height: 800,
-    width: 1500,
+    height: 900,
+    width: 1200,
     background: {
         type: 'color',
         resource: '#CCC'
     },
     layout: {
         ground: [{
-            x: 0, y: 600, endX: 1500, endY: 600
+            x: 0, y: 600, endX: 1200, endY: 600
         }],
         exits: [],
         ladders: []
@@ -30,7 +30,8 @@ class Scene {
             x: 0,
             y: 0,
             height: this.data.height,
-            width: this.data.width
+            width: this.data.width,
+            textureUrl: "rock_0.jpg"
         }, (rplBackground) => {
             this.data.background.rplObject = rplBackground;
         });

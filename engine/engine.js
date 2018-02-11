@@ -19,6 +19,9 @@ class RepelEngine {
         this.height = parseInt(configuration.height || this.DOMRootElement.innerHeight());
         this.width = parseInt(configuration.width || this.DOMRootElement.innerWidth());
         this.controller = new RepelController(this);
+        this.resourceLibrary = new ResourceLibrary();
+        //TODO a modifier
+        window.resourceLibrary = this.resourceLibrary;
     }
 
     getController() {

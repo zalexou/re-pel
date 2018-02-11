@@ -23,6 +23,25 @@ class ObjectRenderer {
             options.ctx.fill();
         }
     }
+    
+    static renderTexture(x, y, height, width, options) {
+
+        var drawImage = function(image) {
+            options.ctx.drawImage(image, x, y, width, height);
+        };
+
+        var img = window.resourceLibrary.getImage();
+        if (img) {
+            drawImage(img);
+        } else {
+            let img = new Image();
+            img.addEventListener('load', function() {
+                drawImage(img);
+                window.resourceLibrary.setImage(img);
+            });
+            img.src = './engine/resources/' + options.textureUrl;
+        }
+    }
 
     /**
      * 

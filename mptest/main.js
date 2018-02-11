@@ -2,7 +2,9 @@
  * Created by alex on 26/08/2017.
  */
 let engine = new RepelEngine({
-    DOMElement: $('#container')
+    DOMElement: $('#container'),
+    height: 900,
+    width: 1200
 });
 engine.init();
 window.controller = engine.getController();
