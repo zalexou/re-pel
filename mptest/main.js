@@ -19,3 +19,18 @@ let daemon = new Daemon({
     execute: (ctrl) => console.log('salut je suis a la frame num'+ ctrl.frameCount)
 });
 window.controller.registerDaemon(daemon);
+
+let oSquare;
+let addSquare = new CreateObjectCmd('Quadrilateral', {
+    x: 150,
+    y: 250,
+    width: 50,
+    height: 50
+}, (object) => {
+    oSquare = object;
+    let goLeft = new KeystrokeCmd('LEFT', () => {
+        let mL = new MoveToCmd(oSquare, Infinity, 50)
+    });
+});
+controller.pushCommand(addSquare);
+
